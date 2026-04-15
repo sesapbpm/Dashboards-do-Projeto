@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dashboard DIMP-SESAP - Projeto DIMP - Indicadores e Relatórios">
+    <title>Projeto DIMP - Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ======================== LOGIN SCREEN ======================== -->
+    <div id="login-screen" class="login-screen">
+        <div class="login-particles" id="particles"></div>
+        <div class="login-card">
+            <div class="login-logo">
+                <div class="logo-icon">
+                    <img src="logo oficial HEII.jpg" alt="HEII Logo" class="heii-logo-img">
+                </div>
+                <h1>HEII</h1>
+                <p class="login-subtitle">Projeto DIMP — Dashboard</p>
+            </div>
+            <form id="login-form" onsubmit="return handleLogin(event)">
+                <div class="input-group">
+                    <label for="password-input">Senha de Acesso</label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0110 0v4"/>
+                        </svg>
+                        <input type="password" id="password-input" placeholder="Digite a senha" autocomplete="off" required>
+                        <button type="button" class="toggle-password" onclick="togglePassword()">
+                            <svg id="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <p id="error-msg" class="error-msg">Senha incorreta. Tente novamente.</p>
+                </div>
+                <button type="submit" class="login-btn" id="login-btn">
+                    <span>Acessar Dashboard</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </button>
+            </form>
+            <div class="login-footer">
+                <p>HEII – Healthcare, Engineering and Industrial Innovation Research Group</p>
+                <p>UFRN • Departamento de Engenharia de Produção</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================== DASHBOARD SCREEN ======================== -->
+    <div id="dashboard-screen" class="dashboard-screen hidden">
+        <!-- NAVBAR -->
+        <nav class="navbar" id="navbar">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <div class="brand-icon">
+                        <img src="logo oficial HEII.jpg" alt="HEII Logo" class="brand-logo-img">
+                    </div>
+                    <span class="brand-name">Projeto DIMP</span>
+                </div>
+                <div class="nav-links" id="nav-links">
+                    <a href="#" class="nav-link active" data-page="inicio">Início</a>
+                    <a href="#" class="nav-link" data-page="indicadores-projeto">Indicadores do Projeto</a>
+                    <a href="#" class="nav-link" data-page="estoques-sipac">Estoques do SIPAC</a>
+                </div>
+                <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <button class="logout-btn" onclick="handleLogout()" title="Sair">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+                        <polyline points="16 17 21 12 16 7"/>
+                        <line x1="21" y1="12" x2="9" y2="12"/>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- PAGE CONTENT -->
+        <main class="main-content">
+
+            <!-- INÍCIO PAGE (Dashboard Selector) -->
+            <section id="page-inicio" class="page active-page">
+                <div class="page-header">
+                    <h1>Dashboards</h1>
+                    <div class="header-line"></div>
+                    <p class="page-description">Selecione o dashboard que deseja visualizar.</p>
+                </div>
+                <div class="dashboard-selector">
+                    <div class="dashboard-card" onclick="switchPage('indicadores-projeto')">
+                        <div class="dashboard-card-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <line x1="18" y1="20" x2="18" y2="10"/>
+                                <line x1="12" y1="20" x2="12" y2="4"/>
+                                <line x1="6" y1="20" x2="6" y2="14"/>
+                            </svg>
+                        </div>
+                        <h2>Indicadores do Projeto</h2>
+                        <p>Acompanhe os principais indicadores do projeto através do painel de BI.</p>
+                        <div class="dashboard-card-status available">
+                            <span class="status-dot"></span>
+                            Disponível
+                        </div>
+                    </div>
+                    <div class="dashboard-card coming-soon">
+                        <div class="dashboard-card-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                                <line x1="12" y1="22.08" x2="12" y2="12"/>
+                            </svg>
+                        </div>
+                        <h2>Estoques do SIPAC</h2>
+                        <p>Dashboard de controle de estoques do SIPAC. Em desenvolvimento.</p>
+                        <div class="dashboard-card-status unavailable">
+                            <span class="status-dot"></span>
+                            Em breve
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- INDICADORES DO PROJETO PAGE -->
+            <section id="page-indicadores-projeto" class="page">
+                <div class="page-header">
+                    <h1>Indicadores do Projeto</h1>
+                    <div class="header-line"></div>
+                    <p class="page-description">Acompanhe os principais indicadores do projeto através do nosso painel de BI.</p>
+                </div>
+                <div class="dashboard-container">
+                    <iframe 
+                        id="powerbi-frame"
+                        title="DashboardDIMP_SESAP" 
+                        src="https://app.powerbi.com/view?r=eyJrIjoiMDVlMDk1YmMtZjJjYS00OWE1LTg3OTgtM2M3YjBkZDk4NjJiIiwidCI6IjY2N2ZhN2QzLWRmYzMtNDlhMS05ZWVmLTA0NThiNWY5NzFjNyJ9" 
+                        frameborder="0" 
+                        allowFullScreen="true">
+                    </iframe>
+                </div>
+            </section>
+
+            <!-- ESTOQUES DO SIPAC PAGE -->
+            <section id="page-estoques-sipac" class="page">
+                <div class="page-header">
+                    <h1>Estoques do SIPAC</h1>
+                    <div class="header-line"></div>
+                    <p class="page-description">Dashboard de controle de estoques do SIPAC.</p>
+                </div>
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                            <line x1="12" y1="22.08" x2="12" y2="12"/>
+                        </svg>
+                    </div>
+                    <h2>Em breve</h2>
+                    <p>O dashboard de Estoques do SIPAC está em desenvolvimento e será disponibilizado em breve.</p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
